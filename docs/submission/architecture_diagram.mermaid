@@ -1,0 +1,39 @@
+%% Agentic Healthcare Maps — submission architecture (VF → UI)
+%% Render in GitHub, VS Code Mermaid preview, or export to PNG for slides.
+
+flowchart TB
+  subgraph ingest [Data ingest]
+    VF[("VF India 10K dataset\n(spreadsheet / bronze)")]
+  end
+
+  subgraph extract [Phase 2 extraction]
+    EX["Structured extraction\nPydantic FacilityClaim\nopen-weight Qwen2.5-7B\nvLLM on Colab Pro"]
+  end
+
+  subgraph trust [Phase 3 calibration]
+    CAL["Isotonic regression +\nMAPIE split conformal\nper-capability trust scores"]
+  end
+
+  subgraph validate [Phase 4 validation]
+    VAL["IPHS-grounded validator\niphs_rules.yaml\nper-capability iphs_alignment"]
+  end
+
+  subgraph serve [Citation API]
+    API["FastAPI GET /trace/{source_record_id}\nmerge claim + trust +\nvalidations + rules_index +\nMLflow trace summaries"]
+  end
+
+  subgraph ui [Frontend and observability]
+    FE["React client\n(Lovable / Vite)"]
+    MLF["MLflow 3 tracing\n(step-level audit)"]
+  end
+
+  VF --> EX
+  EX -->|"phase2_extractions.jsonl"| CAL
+  CAL -->|"phase3_trust_scores.jsonl"| VAL
+  VAL -->|"phase4_validations.jsonl"| API
+  EX --> API
+  CAL --> API
+  API --> FE
+  EX -.->|"instrumented runs"| MLF
+  VAL -.->|"instrumented runs"| MLF
+  API -->|"trace lookups"| MLF
