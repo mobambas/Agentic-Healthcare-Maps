@@ -1,0 +1,204 @@
+# IPHS 2022 + WHO SARA validator rulebook (Phase 4 v1).
+#
+# Each rule encodes one machine-checkable contradiction between a claimed
+# capability and the staffing / equipment / tier-scope evidence that an
+# IPHS-equivalent facility would be required to show.
+#
+# Schema:
+#   id:                 stable identifier
+#   severity:           high | medium | low
+#   framework:          IPHS volume + section, or SARA tracer name
+#   applies_to:         list of inferred IPHS-equivalent tiers, OR the literal
+#                       sentinel `any_facility_with_capability_X` meaning the
+#                       rule fires on any facility making the trigger claim
+#                       regardless of tier (used because the VF dataset is
+#                       ~99% private and IPHS-only-on-public would render the
+#                       validator inert).
+#   trigger_capability: canonical capability name OR list of canonical names
+#                       that activate this rule. (Spec deviation: allowed as a
+#                       list to avoid duplicating one playbook bullet across
+#                       N rule IDs when the bullet logically applies to a
+#                       family of capabilities.)
+#   required_evidence:  canonical names that must ALSO be present in the
+#                       FacilityClaim for the trigger to be substantiated.
+#                       Missing evidence deducts 0.25 per miss from the cap's
+#                       iphs_alignment_score (floored at 0.0).
+#   flag_text:          human-readable contradiction for the citation UI
+#   citation:           IPHS clause or SARA tracer; marked `[uncertain ...]`
+#                       when not directly supported by the playbook research
+#                       material — never fabricated.
+
+- id: R01
+  severity: high
+  framework: IPHS Vol II — FRU CHC essential specialists
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability:
+    - surgery_services
+    - orthopedic_surgery_services
+    - joint_reconstruction_surgery_services
+    - obstetric_surgery_caesarean
+  required_evidence: [anaesthesiology]
+  flag_text: Surgical services claimed without an anaesthesiology provider; IPHS requires an anaesthesiologist (or LSAS-trained MO) at any facility offering surgical care.
+  citation: IPHS 2022 Vol II — FRU CHC essential specialists list (Surgeon, Physician, Obstetrician-Gynaecologist, Paediatrician, Anaesthesiologist or LSAS-trained MO).
+
+- id: R02
+  severity: high
+  framework: IPHS Vol II — FRU CHC functional OT
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability:
+    - surgery_services
+    - orthopedic_surgery_services
+    - joint_reconstruction_surgery_services
+    - obstetric_surgery_caesarean
+  required_evidence: [operation_theatre]
+  flag_text: Surgical services claimed without evidence of a functional operation theatre; IPHS lists a functional OT as essential at FRU CHC and above.
+  citation: IPHS 2022 Vol II — FRU CHC functional OT requirement.
+
+- id: R03
+  severity: high
+  framework: IPHS Vol II — FRU CHC blood storage unit
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability: [obstetric_surgery_caesarean]
+  required_evidence: [blood_storage_unit]
+  flag_text: Caesarean / CEmONC services claimed without an on-site blood storage unit; IPHS requires a BSU at FRU CHC and above.
+  citation: IPHS 2022 Vol II — FRU CHC Blood Storage Unit annex.
+
+- id: R04
+  severity: high
+  framework: IPHS Vol II — FRU CHC five essential specialists
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability: [obstetric_surgery_caesarean]
+  required_evidence: [gynecology_and_obstetrics_services]
+  flag_text: Comprehensive emergency obstetric care claimed without an obstetrician/gynaecologist on the declared specialty list.
+  citation: IPHS 2022 Vol II — FRU CHC essential specialists (obstetrician/gynaecologist).
+
+- id: R05
+  severity: high
+  framework: IPHS Vol I — DH ICU equipment annex
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability: [icu_services]
+  required_evidence: [ventilator_equipment]
+  flag_text: ICU services claimed without ventilator evidence; IPHS DH equipment annex requires ≥1 ventilator per ICU bed.
+  citation: IPHS 2022 Vol I — DH equipment annex (ventilators ≥1 per ICU bed).
+
+- id: R09
+  severity: medium
+  framework: IPHS Vol II / III — labour-room equipment
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability: [gynecology_and_obstetrics_services]
+  required_evidence: [radiant_warmer_equipment]
+  flag_text: Obstetric / delivery services claimed without a radiant warmer in the equipment list; radiant warmer is an IPHS-listed labour-room item.
+  citation: "[uncertain — verify in IPHS Vol II/III labour-room equipment annex]"
+
+- id: R13
+  severity: high
+  framework: PCPNDT Act 1994 + IPHS USG annex
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability: [radiology_usg]
+  required_evidence: [pcpndt_certified]
+  flag_text: USG services claimed without PCPNDT certification evidence; PCPNDT Act 1994 requires registered USG facilities and trained personnel.
+  citation: "PCPNDT Act 1994; IPHS USG service annex [uncertain — verify in IPHS Vol II §radiology]"
+
+- id: R20a
+  severity: medium
+  framework: IPHS Vol III — PHC scope
+  applies_to: [phc]
+  trigger_capability: [obstetric_surgery_caesarean]
+  required_evidence: []
+  flag_text: PHC-tier facility claims caesarean section, which is outside PHC scope per IPHS Vol III.
+  citation: IPHS 2022 Vol III — PHC scope ("no caesarean, no major surgery, no ICU, no blood bank, no X-ray, no USG").
+
+- id: R20b
+  severity: medium
+  framework: IPHS Vol III — PHC scope
+  applies_to: [phc]
+  trigger_capability: [icu_services]
+  required_evidence: []
+  flag_text: PHC-tier facility claims ICU services, which are outside PHC scope per IPHS Vol III.
+  citation: IPHS 2022 Vol III — PHC scope ("no caesarean, no major surgery, no ICU, no blood bank, no X-ray, no USG").
+
+- id: R20c
+  severity: medium
+  framework: IPHS Vol III — PHC scope
+  applies_to: [phc]
+  trigger_capability: [blood_bank]
+  required_evidence: []
+  flag_text: PHC-tier facility claims a blood bank, which is outside PHC scope per IPHS Vol III.
+  citation: IPHS 2022 Vol III — PHC scope ("no caesarean, no major surgery, no ICU, no blood bank, no X-ray, no USG").
+
+- id: R22
+  severity: high
+  framework: IPHS Vol II — FRU CHC five essential specialists
+  applies_to: [chc_fru]
+  trigger_capability: [inpatient_services]
+  required_evidence:
+    - anaesthesiology
+    - gynecology_and_obstetrics_services
+    - pediatrics_services
+    - surgery_services
+    - internal_medicine_services
+  flag_text: FRU CHC inpatient services claimed without all five essential specialists (Surgeon, Physician, Obstetrician-Gynaecologist, Paediatrician, Anaesthesiologist).
+  citation: IPHS 2022 Vol II — FRU CHC essential specialists list.
+
+- id: R26
+  severity: high
+  framework: IPHS Vol I — DH essential equipment
+  applies_to: [sdh_dh]
+  trigger_capability: [inpatient_services]
+  required_evidence:
+    - radiology_ct
+    - icu_services
+    - blood_bank
+    - sncu_services
+  flag_text: District Hospital tier claimed without one or more of CT, ICU, blood bank, SNCU; IPHS Vol I lists all four as essential at DH.
+  citation: IPHS 2022 Vol I — DH essential equipment (CT essential at DH; SNCU/MNCU at 12 beds in 100-bed configs).
+
+- id: R30
+  severity: medium
+  framework: IPHS infrastructure annex
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability:
+    - icu_services
+    - operation_theatre
+    - blood_bank
+  required_evidence: [power_backup]
+  flag_text: Power-critical service claimed without evidence of power back-up; IPHS infrastructure annex requires uninterrupted power for ICU, OT, and blood bank.
+  citation: "[uncertain — verify in IPHS Vol I/II infrastructure annex]"
+
+- id: R33
+  severity: medium
+  framework: IPHS emergency services annex
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability:
+    - emergency_care_24x7
+    - emergency_care
+  required_evidence: [ambulance_service]
+  flag_text: Emergency care claimed without an ambulance / patient-transport linkage; IPHS lists ambulance access as essential alongside emergency services.
+  citation: "[uncertain — verify in IPHS emergency services annex]"
+
+- id: R37
+  severity: medium
+  framework: IPHS essential medicines list
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability: [obstetric_surgery_caesarean]
+  required_evidence: [oxytocin_inventory]
+  flag_text: Delivery / obstetric services claimed without an oxytocin entry on the essential medicines / inventory list.
+  citation: "[uncertain — verify in IPHS essential medicines list, also WHO SARA tracer]"
+
+- id: R39
+  severity: medium
+  framework: IPHS Vol III/IV cold-chain annex
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability: [immunisation_services]
+  required_evidence: [cold_chain_equipment]
+  flag_text: Immunisation services claimed without cold-chain equipment in the equipment list.
+  citation: "[uncertain — verify in IPHS Vol III/IV cold-chain annex]"
+
+- id: R41
+  severity: medium
+  framework: IPHS RNTCP / NTEP integration
+  applies_to: [any_facility_with_capability_X]
+  trigger_capability: [tb_services]
+  required_evidence: [sputum_diagnostic]
+  flag_text: TB services claimed without sputum-microscopy or NAAT diagnostic evidence; NTEP / IPHS pair TB services with sputum diagnostics.
+  citation: "[uncertain — verify in IPHS RNTCP/NTEP integration annex]"

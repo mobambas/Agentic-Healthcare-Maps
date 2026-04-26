@@ -1,0 +1,57 @@
+# Capability alias map.
+# Format: each top-level key is a canonical capability name (must already exist
+# in capability_vocabulary.md). Each list item is a synonym that will be
+# rewritten to the canonical name during canonicalization.
+#
+# Only add a pairing here when the synonym differs from the canonical solely
+# by stylistic variation (suffix, abbreviation, sub-area roll-up). Do NOT add
+# pairings whose only evidence of equivalence is high string similarity.
+#
+# Vocabulary convention: bare nouns for clinical disciplines
+# (homeopathy, ayurveda, physiotherapy) and _services for delivered
+# services (outpatient_services, dental_services).
+
+dental_services:
+  - dentistry_services
+  - dental_implant_services
+  - dental_treatment
+  - oral_dental_services
+
+root_canal_treatment_services:
+  - root_canal_treatment
+  - rct_services
+  - endodontic_services
+  - endodontics_services
+
+laser_dentistry_services:
+  - laser_dentistry
+  - laser_dental_services
+
+prosthodontics_services:
+  - fixed_prosthodontics_services
+
+oral_and_maxillofacial_surgery_services:
+  - maxillofacial_surgery_services
+  - oral_maxillofacial_surgery
+  - maxillofacial_services
+
+inpatient_services:
+  - ipd_services
+  - admission_services
+
+outpatient_services:
+  - opd_services
+
+ambulance_service:
+  - ambulance_services
+  - emergency_transport
+
+pmjay_empanelled:
+  - ayushman_bharat_empanelled
+  - ayushman_card_accepted
+  - pmjay_accepted
+
+physiotherapy:
+  - physiotherapy_services
+  - physical_therapy_services
+  - physio_services
