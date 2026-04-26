@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Eval dashboard — Phases 2–5</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; max-width: 960px; color: #1a1a1a; }
+    h1 { font-size: 1.5rem; }
+    .phase { border: 1px solid #ccc; border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; background: #fafafa; }
+    .meta { color: #555; font-size: 0.9rem; }
+    .halt-yes { color: #b00020; }
+    .halt-no { color: #1b5e20; }
+    .skipped { color: #6a4c00; font-style: italic; }
+    table.metrics { border-collapse: collapse; width: 100%; }
+    table.metrics th, table.metrics td { border: 1px solid #ddd; padding: 0.35rem 0.5rem; text-align: left; }
+    table.metrics th { background: #eee; width: 40%; }
+    pre.log { background: #111; color: #e0e0e0; padding: 1rem; overflow-x: auto; font-size: 0.75rem; max-height: 24rem; }
+    </style>
+</head>
+<body>
+  <h1>Eval dashboard — Phases 2–5</h1>
+  <p>Generated <strong>2026-04-26T11:51:22Z</strong> (UTC).</p>
+  
+<section class="phase" id="phase2">
+  <h2>Phase 2 — extraction vs gold</h2>
+  <p class="meta">Eval last run: <strong>2026-04-26T11:50:43Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  
+  <p class="halt-no"><strong>Halt: no</strong></p>
+  <p>Exit code: 0</p>
+  <h3>Headline metrics</h3>
+  <table class="metrics">
+    <tbody><tr><th>avg_capability_recall</th><td>0.877</td></tr><tr><th>avg_capability_precision</th><td>0.714</td></tr><tr><th>category_accuracy</th><td>1.0</td></tr><tr><th>evidence_rejections_total</th><td>0</td></tr><tr><th>records_in_aggregate</th><td>30</td></tr></tbody>
+  </table>
+  <h3>Output (tail)</h3>
+  <pre class="log">source_record_id    gold   ext   tp  recall   prec   cat  rej   n
+----------------------------------------------------------------------------
+bd17235a0b442a2c       4     3    3    0.75   1.00  True    0   5
+f595fb439aaf5c0c       1     1    1    1.00   1.00  True    0   5
+ebd7e150a47d95bb       1     3    1    1.00   0.33  True    0   5
+1be16a7b6cbb5c04       8     8    6    0.75   0.75  True    0   5
+7a574fc4d0d9f89f       2     1    1    0.50   1.00  True    0   5
+50e0f3a987c72daf       3     3    3    1.00   1.00  True    0   5
+8ace349ea112c5ca       1     1    1    1.00   1.00  True    0   5
+05f57ed55769081f       6     5    5    0.83   1.00  True    0   5
+61a497324aad3951       1     1    1    1.00   1.00  True    0   5
+c96365600b625352       5     5    5    1.00   1.00  True    0   5
+96179690c7f34ea8       2     2    1    0.50   0.50  True    0   5
+fa9609eaa9184758       1     1    1    1.00   1.00  True    0   5
+0c5f5fde9e8fa6e7       2     2    2    1.00   1.00  True    0   5
+0f6abdbc24cabb34       6     5    4    0.67   0.80  True    0   5
+c616c9769f2afbd7       4     6    4    1.00   0.67  True    0   5
+8332a793b5b164f1       1     2    1    1.00   0.50  True    0   5
+5168bf85bdd28264       2     3    1    0.50   0.33  True    0   5
+30170845b193bce8       2     3    2    1.00   0.67  True    0   5
+21225dec16cff1db       1     2    0    0.00   0.00  True    0   5
+8e9fbe59abcf2aa9       1     2    1    1.00   0.50  True    0   5
+230a3ef16fa14846       2     4    2    1.00   0.50  True    0   5
+589146e2c987f29d       3     7    3    1.00   0.43  True    0   5
+c4474812e7762a07       1     4    1    1.00   0.25  True    0   5
+f8bc363f04e3b6a4       3     5    3    1.00   0.60  True    0   5
+74cd634522e40809       4     4    4    1.00   1.00  True    0   5
+0577b4cf09169dc1       1     2    1    1.00   0.50  True    0   5
+4180ca041040887a       1     3    1    1.00   0.33  True    0   5
+33681dea462fcb8e       5     4    4    0.80   1.00  True    0   5
+eddeaea48b1eaf3a       3     4    3    1.00   0.75  True    0   5
+3a6bf0ae38b08bd5       5     5    5    1.00   1.00  True    0   5
+
+Aggregate over 30 records:
+  capability recall:    0.877
+  capability precision: 0.714
+  category accuracy:    1.000
+  evidence rejections:  0 (total across all samples)
+
+Loaded 25 synonyms from capability_aliases.yaml; applied to both gold and extracted names.
+</pre>
+</section>
+
+<section class="phase" id="phase3">
+  <h2>Phase 3 — trust calibration</h2>
+  <p class="meta">Eval last run: <strong>2026-04-26T11:50:45Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  
+  <p class="halt-no"><strong>Halt: no</strong></p>
+  <p>Exit code: 0</p>
+  <h3>Headline metrics</h3>
+  <table class="metrics">
+    <tbody><tr><th>empirical_coverage_held_out</th><td>1.0</td></tr><tr><th>empirical_coverage</th><td>1.0</td></tr><tr><th>target_coverage</th><td>0.9</td></tr><tr><th>coverage_floor</th><td>0.85</td></tr><tr><th>validations_loaded_records</th><td>30</td></tr><tr><th>badges_green</th><td>10</td></tr><tr><th>badges_yellow</th><td>91</td></tr><tr><th>badges_red</th><td>0</td></tr></tbody>
+  </table>
+  <h3>Output (tail)</h3>
+  <pre class="log">  0.56  0.57 {claimed,not_claimed}    yellow
+8332a793b5b164f1   homeopathy                              True  0.81  0.61 {claimed,not_claimed}    yellow
+8332a793b5b164f1   family_medicine_services                True  0.81  0.61 {claimed,not_claimed}    yellow
+5168bf85bdd28264   homeopathy                              True  0.82  0.61 {claimed,not_claimed}    yellow
+5168bf85bdd28264   family_medicine_services                True  0.82  0.61 {claimed,not_claimed}    yellow
+5168bf85bdd28264   internal_medicine_services              True  0.82  0.61 {claimed,not_claimed}    yellow
+30170845b193bce8   homeopathy                              True  0.83  0.70 {claimed,not_claimed}    yellow
+30170845b193bce8   family_medicine_services                True  0.83  0.70 {claimed,not_claimed}    yellow
+30170845b193bce8   dermatology_services                    True  0.83  0.70 {claimed,not_claimed}    yellow
+21225dec16cff1db   dermatology_services                    True  0.81  0.61 {claimed,not_claimed}    yellow
+21225dec16cff1db   family_medicine_services                True  0.81  0.61 {claimed,not_claimed}    yellow
+8e9fbe59abcf2aa9   outpatient_services                     True  0.88  0.70 {claimed,not_claimed}    yellow
+8e9fbe59abcf2aa9   family_medicine_services                True  0.88  0.70 {claimed,not_claimed}    yellow
+230a3ef16fa14846   pulmonology_services                    True  0.81  0.61 {claimed,not_claimed}    yellow
+230a3ef16fa14846   sleep_medicine_services                 True  0.81  0.61 {claimed,not_claimed}    yellow
+230a3ef16fa14846   family_medicine_services                True  0.81  0.61 {claimed,not_claimed}    yellow
+230a3ef16fa14846   general_healthcare_services             True  0.74  0.57 {claimed,not_claimed}    yellow
+589146e2c987f29d   homeopathy                              True  0.89  0.70 {claimed,not_claimed}    yellow
+589146e2c987f29d   outpatient_services                     True  0.89  0.70 {claimed,not_claimed}    yellow
+589146e2c987f29d   dermatology_services                    True  0.89  0.70 {claimed,not_claimed}    yellow
+589146e2c987f29d   cosmetology_services                    True  0.76  0.57 {claimed,not_claimed}    yellow
+589146e2c987f29d   diabetes_management                     True  0.89  0.70 {claimed,not_claimed}    yellow
+589146e2c987f29d   kidney_stone_management                 True  0.89  0.70 {claimed,not_claimed}    yellow
+589146e2c987f29d   family_medicine_services                True  0.76  0.57 {claimed,not_claimed}    yellow
+c4474812e7762a07   dental_services                         True  0.84  0.70 {claimed,not_claimed}    yellow
+c4474812e7762a07   outpatient_services                     True  0.84  0.70 {claimed,not_claimed}    yellow
+c4474812e7762a07   family_medicine_services                True  0.84  0.70 {claimed,not_claimed}    yellow
+c4474812e7762a07   root_canal_treatment_services           True  0.84  0.70 {claimed,not_claimed}    yellow
+f8bc363f04e3b6a4   dental_services                         True  0.75  0.57 {claimed,not_claimed}    yellow
+f8bc363f04e3b6a4   outpatient_services                     True  0.75  0.57 {claimed,not_claimed}    yellow
+f8bc363f04e3b6a4   pharmacy_onsite                         True  0.75  0.57 {claimed,not_claimed}    yellow
+f8bc363f04e3b6a4   root_canal_treatment_services           True  0.75  0.57 {claimed,not_claimed}    yellow
+f8bc363f04e3b6a4   laser_dentistry_services                True  0.75  0.57 {claimed,not_claimed}    yellow
+74cd634522e40809   dental_services                         True  0.81  0.61 {claimed,not_claimed}    yellow
+74cd634522e40809   root_canal_treatment_services           True  0.81  0.61 {claimed,not_claimed}    yellow
+74cd634522e40809   orthodontics_services                   True  0.81  0.61 {claimed,not_claimed}    yellow
+74cd634522e40809   aesthetic_dentistry_services            True  0.81  0.61 {claimed,not_claimed}    yellow
+0577b4cf09169dc1   dental_services                         True  0.81  0.61 {claimed,not_claimed}    yellow
+0577b4cf09169dc1   general_healthcare_services             True  0.81  0.61 {claimed,not_claimed}    yellow
+4180ca041040887a   laboratory_services                     True  0.88  0.70 {claimed,not_claimed}    yellow
+4180ca041040887a   pathology_services                      True  0.88  0.70 {claimed,not_claimed}    yellow
+4180ca041040887a   general_healthcare_services             True  0.88  0.70 {claimed,not_claimed}    yellow
+33681dea462fcb8e   pharmacy_onsite                         True  0.83  0.70 {claimed,not_claimed}    yellow
+33681dea462fcb8e   laboratory_services                     True  0.83  0.70 {claimed,not_claimed}    yellow
+33681dea462fcb8e   internal_medicine_services              True  0.83  0.70 {claimed,not_claimed}    yellow
+33681dea462fcb8e   pathology_services                      True  0.83  0.70 {claimed,not_claimed}    yellow
+eddeaea48b1eaf3a   outpatient_services                     True  0.83  0.70 {claimed,not_claimed}    yellow
+eddeaea48b1eaf3a   pharmacy_onsite                         True  0.83  0.70 {claimed,not_claimed}    yellow
+eddeaea48b1eaf3a   family_medicine_services                True  0.83  0.70 {claimed,not_claimed}    yellow
+eddeaea48b1eaf3a   clinical_staff_presence                 True  0.70  0.57 {claimed,not_claimed}    yellow
+3a6bf0ae38b08bd5   ayurveda                                True  0.83  0.70 {claimed,not_claimed}    yellow
+3a6bf0ae38b08bd5   gynecology_and_obstetrics_services      True  0.66  0.57 {claimed,not_claimed}    yellow
+3a6bf0ae38b08bd5   dermatology_services                    True  0.83  0.70 {claimed,not_claimed}    yellow
+3a6bf0ae38b08bd5   clinical_nutrition                      True  0.83  0.70 {claimed,not_claimed}    yellow
+3a6bf0ae38b08bd5   lifestyle_coaching                      True  0.83  0.70 {claimed,not_claimed}    yellow
+
+per-record summary
+source_record_id      sc  comp  iphs blend green yellow  red
+------------------------------------------------------------
+bd17235a0b442a2c    1.00  0.49  0.83  0.77     0      3    0
+f595fb439aaf5c0c    1.00  0.65  1.00  0.88     0      1    0
+ebd7e150a47d95bb    1.00  0.43  1.00  0.81     0      3    0
+1be16a7b6cbb5c04    0.95  0.80  1.00  0.92     6      2    0
+7a574fc4d0d9f89f    1.00  0.55  1.00  0.85     0      1    0
+50e0f3a987c72daf    1.00  0.49  0.67  0.72     0      3    0
+8ace349ea112c5ca    1.00  0.43  1.00  0.81     0      1    0
+05f57ed55769081f    1.00  0.78  0.90  0.89     4      1    0
+61a497324aad3951    1.00  0.55  1.00  0.85     0      1    0
+c96365600b625352    1.00  0.52  0.90  0.81     0      5    0
+96179690c7f34ea8    1.00  0.65  1.00  0.88     0      2    0
+fa9609eaa9184758    1.00  0.43  1.00  0.81     0      1    0
+0c5f5fde9e8fa6e7    1.00  0.49  1.00  0.83     0      2    0
+0f6abdbc24cabb34    1.00  0.45  1.00  0.82     0      5    0
+c616c9769f2afbd7    1.00  0.68  0.50  0.73     0      6    0
+8332a793b5b164f1    1.00  0.43  1.00  0.81     0      2    0
+5168bf85bdd28264    1.00  0.45  1.00  0.82     0      3    0
+30170845b193bce8    1.00  0.49  1.00  0.83     0      3    0
+21225dec16cff1db    1.00  0.43  1.00  0.81     0      2    0
+8e9fbe59abcf2aa9    1.00  0.65  1.00  0.88     0      2    0
+230a3ef16fa14846    0.95  0.43  1.00  0.79     0      4    0
+589146e2c987f29d    0.89  0.68  1.00  0.86     0      7    0
+c4474812e7762a07    1.00  0.52  1.00  0.84     0      4    0
+f8bc363f04e3b6a4    1.00  0.25  1.00  0.75     0      5    0
+74cd634522e40809    1.00  0.43  1.00  0.81     0      4    0
+0577b4cf09169dc1    1.00  0.43  1.00  0.81     0      2    0
+4180ca041040887a    1.00  0.63  1.00  0.88     0      3    0
+33681dea462fcb8e    1.00  0.49  1.00  0.83     0      4    0
+eddeaea48b1eaf3a    0.90  0.49  1.00  0.80     0      4    0
+3a6bf0ae38b08bd5    1.00  0.49  0.90  0.80     0      5    0
+
+badge totals: green=10 yellow=91 red=0
+empirical coverage = 1.0000  (target = 0.90, floor = 0.85)
+wrote 30 records to data/phase3_trust_scores.jsonl
+
+</pre>
+</section>
+
+<section class="phase" id="phase4">
+  <h2>Phase 4 — IPHS validator</h2>
+  <p class="meta">Eval last run: <strong>2026-04-26T11:50:47Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  
+  <p class="halt-no"><strong>Halt: no</strong></p>
+  <p>Exit code: 0</p>
+  <h3>Headline metrics</h3>
+  <table class="metrics">
+    <tbody><tr><th>rules_loaded</th><td>17</td></tr><tr><th>facilities_validated</th><td>30</td></tr><tr><th>total_capabilities</th><td>101</td></tr><tr><th>caps_with_violation</th><td>8</td></tr><tr><th>caps_with_violation_pct</th><td>7.9</td></tr></tbody>
+  </table>
+  <h3>Output (tail)</h3>
+  <pre class="log">Phase 4 IPHS validator run
+  rules loaded: 17
+  facilities validated: 30
+  total capabilities: 101
+  capabilities with &gt;=1 rule violation: 8 (7.9%)
+
+alignment-score distribution
+   score count
+    1.00    93
+    0.75     0
+    0.50     4
+    0.25     0
+    0.00     4
+
+rule fire counts
+  rule_id fires pct of caps
+  R01        4      4.0%
+  R02        4      4.0%
+  R03        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R04        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R05        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R09        1      1.0%
+  R13        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R20a       0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R20b       0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R20c       0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R22        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R26        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R30        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R33        3      3.0%
+  R37        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R39        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+  R41        0      0.0%  (zero-fire — narrow trigger or no record exhibits it)
+
+zero-fire rules (13): R03, R04, R05, R13, R20a, R20b, R20c, R22, R26, R30, R37, R39, R41
+
+top 5 facilities by total rule violations
+  source_record_id   violations  facility_name
+  c616c9769f2afbd7            6  Dr. Pratik Dhabalia Joint Replacement
+  50e0f3a987c72daf            2  Balaji Aarogy Hospital Gangapur City
+  bd17235a0b442a2c            1  Late SHREE Govind Memorial Hospital SEONI M.P
+  05f57ed55769081f            1  Apolo Multispeciality Hospital
+  c96365600b625352            1  Om Dental Hospital and Implant Centre
+
+wrote 30 records to data/phase4_validations.jsonl
+
+</pre>
+</section>
+
+<section class="phase" id="phase5">
+  <h2>Phase 5 — MLflow trace check</h2>
+  <p class="meta">Eval last run: <strong>2026-04-26T11:51:22Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  
+  <p class="halt-no"><strong>Halt: no</strong></p>
+  <p>Exit code: 0</p>
+  <h3>Headline metrics</h3>
+  <table class="metrics">
+    <tbody><tr><th>llm_spans</th><td>5</td></tr><tr><th>chat_model_spans</th><td>5</td></tr><tr><th>tool_spans</th><td>38</td></tr><tr><th>agent_spans</th><td>1</td></tr><tr><th>retriever_spans</th><td>8</td></tr><tr><th>span_types_observed</th><td>&quot;[&#x27;AGENT&#x27;, &#x27;CHAIN&#x27;, &#x27;CHAT_MODEL&#x27;, &#x27;LLM&#x27;, &#x27;RETRIEVER&#x27;, &#x27;TOOL&#x27;]&quot;</td></tr><tr><th>trace_contract_ok</th><td>true</td></tr></tbody>
+  </table>
+  <h3>Output (tail)</h3>
+  <pre class="log">
+aggregated capabilities (post-consistency): [(&#x27;orthopedic_surgery_services&#x27;, 1.0), (&#x27;joint_reconstruction_surgery_services&#x27;, 1.0), (&#x27;family_medicine_services&#x27;, 1.0), (&#x27;orthopedic_sports_medicine_services&#x27;, 1.0), (&#x27;fracture_clinic_services&#x27;, 1.0), (&#x27;knee_replacement_surgery&#x27;, 0.8), (&#x27;arthroscopy_services&#x27;, 0.8), (&#x27;revision_hip_replacement_services&#x27;, 0.8)]
+validator output: 8 CapabilityValidation(s)
+
+trace_id: tr-15badd73a3027a41c7ccdcd929e9cd53    spans: 59
+
+[CHAIN] phase5_end_to_end  (32451.4ms)
+  └─ [CHAIN] process_facility  (32397.7ms)
+    └─ [LLM] anthropic_extract_call  (7258.6ms)
+      └─ [CHAT_MODEL] Messages.create  (7227.4ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 531, &#x27;total_tokens&#x27;: 2785, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (6213.3ms)
+      └─ [CHAT_MODEL] Messages.create  (6201.1ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 447, &#x27;total_tokens&#x27;: 2701, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (6034.7ms)
+      └─ [CHAT_MODEL] Messages.create  (6009.9ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 447, &#x27;total_tokens&#x27;: 2701, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (6871.9ms)
+      └─ [CHAT_MODEL] Messages.create  (6850.5ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 424, &#x27;total_tokens&#x27;: 2678, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (5903.2ms)
+      └─ [CHAT_MODEL] Messages.create  (5876.0ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 448, &#x27;total_tokens&#x27;: 2702, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+  └─ [AGENT] validate_facility  (23.8ms)
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=orthopedic_surgery_services   matched_rule_count=2   matched_rule_ids=[&#x27;R01&#x27;, &#x27;R02&#x27;]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=joint_reconstruction_surgery_services   matched_rule_count=2   matched_rule_ids=[&#x27;R01&#x27;, &#x27;R02&#x27;]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=family_medicine_services   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=orthopedic_sports_medicine_services   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=fracture_clinic_services   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=knee_replacement_surgery   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=arthroscopy_services   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=revision_hip_replacement_services   matched_rule_count=0   matched_rule_ids=[]
+
+span counts: LLM=5  CHAT_MODEL=5  TOOL=38  AGENT=1  RETRIEVER=8
+distinct span_types observed: [&#x27;AGENT&#x27;, &#x27;CHAIN&#x27;, &#x27;CHAT_MODEL&#x27;, &#x27;LLM&#x27;, &#x27;RETRIEVER&#x27;, &#x27;TOOL&#x27;]
+
+OK — trace satisfies the Phase 5 coverage contract.
+
+MLflow tracking: sqlite:////Users/test/Documents/Agentic-Healthcare-Maps/.mlflow/mlflow.db
+/Users/test/Documents/Agentic-Healthcare-Maps/eval/phase5_trace_check.py:112: FutureWarning: Parameter &#x27;experiment_ids&#x27; is deprecated. Please use &#x27;locations&#x27; instead.
+  traces = mlflow.search_traces(
+</pre>
+</section>
+
+</body>
+</html>
