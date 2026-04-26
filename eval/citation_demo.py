@@ -129,8 +129,8 @@ def render_capability_card(cap_score: dict, validation: dict | None, rules: dict
 
 
 def main() -> None:
-    st.set_page_config(page_title="Citation surface preview", layout="wide")
-    st.title("Phase 5 — Citation Surface Preview")
+    st.set_page_config(page_title="Verifacility — every claim, witnessed", layout="wide")
+    st.title("Verifacility · IPHS-grounded facility audit")
     st.caption(
         "Each capability is shown as a card with its alignment score, prediction set, "
         "violated IPHS rules, and the verbatim source quote that grounds the claim. "
