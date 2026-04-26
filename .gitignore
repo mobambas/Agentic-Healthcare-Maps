@@ -1,4 +1,41 @@
+# Secrets — NEVER commit
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*_secret*
+*credentials*
+
+# Python
 .venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+build/
+dist/
+
+# MLflow + artifacts
 .mlflow/
 mlruns/
 mlartifacts/
+mlflow.db
+mlflow.db-*
+
+# FAISS / vector indexes
+.faiss/
+*.faiss
+*.index
+
+# vLLM logs (Phase 6 Colab)
+vllm_server.log
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Notebooks scratch
+.ipynb_checkpoints/

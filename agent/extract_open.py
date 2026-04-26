@@ -62,11 +62,26 @@ DEFAULT_VLLM_ENDPOINT_URL = os.getenv("VLLM_ENDPOINT_URL", "http://localhost:800
 DEFAULT_QWEN_MODEL = os.getenv("QWEN_MODEL", "Qwen/Qwen2.5-7B-Instruct")
 DEFAULT_VLLM_API_KEY = os.getenv("VLLM_API_KEY", "EMPTY")
 
+# Open-weight max_tokens override. The Sonnet path uses 2048 because Anthropic
+# tool calling overhead is small. For Qwen via vLLM, instructor's JSON-mode
+# retry cycle re-includes the previous failed output as prompt context, which
+# can push input + max_tokens above vLLM's --max-model-len 4096 ceiling. 1024
+# tokens of output is comfortably above the Phase 2 average of ~600 and leaves
+# room for retries.
+QWEN_MAX_OUTPUT_TOKENS = 1024
+
 
 def make_client(endpoint_url: str, api_key: str = DEFAULT_VLLM_API_KEY) -> instructor.Instructor:
-    """Build an instructor-wrapped OpenAI client pointed at the vLLM endpoint."""
+    """Build an instructor-wrapped OpenAI client pointed at the vLLM endpoint.
+
+    Uses instructor.Mode.JSON_SCHEMA, which sends the Pydantic schema in
+    OpenAI's `response_format={"type": "json_schema", ...}` field. vLLM honors
+    this with grammar-constrained decoding at the token level, preventing the
+    "model echoes the schema document instead of producing an instance"
+    failure that Mode.JSON exhibits on smaller open-weight models.
+    """
     base = openai.OpenAI(base_url=endpoint_url, api_key=api_key, timeout=180.0)
-    return instructor.from_openai(base, mode=instructor.Mode.JSON)
+    return instructor.from_openai(base, mode=instructor.Mode.JSON_SCHEMA)
 
 
 @mlflow.trace(span_type=SpanType.LLM, name="qwen_extract_call")
@@ -77,11 +92,11 @@ def call_model(
     user_message: str,
     temperature: float,
 ) -> tuple[FacilityExtraction | None, Any]:
-    """One sample call against the vLLM endpoint via Instructor + JSON mode."""
+    """One sample call against the vLLM endpoint via Instructor + JSON_SCHEMA mode."""
     try:
         result, raw = client.chat.completions.create_with_completion(
             model=model,
-            max_tokens=MAX_OUTPUT_TOKENS,
+            max_tokens=QWEN_MAX_OUTPUT_TOKENS,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_message},

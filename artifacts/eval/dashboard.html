@@ -20,11 +20,11 @@
 </head>
 <body>
   <h1>Eval dashboard — Phases 2–5</h1>
-  <p>Generated <strong>2026-04-26T11:51:22Z</strong> (UTC).</p>
+  <p>Generated <strong>2026-04-26T12:42:59Z</strong> (UTC).</p>
   
 <section class="phase" id="phase2">
   <h2>Phase 2 — extraction vs gold</h2>
-  <p class="meta">Eval last run: <strong>2026-04-26T11:50:43Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  <p class="meta">Eval last run: <strong>2026-04-26T12:42:49Z</strong> (UTC). Dashboard generated: 2026-04-26T12:42:59Z.</p>
   
   <p class="halt-no"><strong>Halt: no</strong></p>
   <p>Exit code: 0</p>
@@ -78,7 +78,7 @@ Loaded 25 synonyms from capability_aliases.yaml; applied to both gold and extrac
 
 <section class="phase" id="phase3">
   <h2>Phase 3 — trust calibration</h2>
-  <p class="meta">Eval last run: <strong>2026-04-26T11:50:45Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  <p class="meta">Eval last run: <strong>2026-04-26T12:42:51Z</strong> (UTC). Dashboard generated: 2026-04-26T12:42:59Z.</p>
   
   <p class="halt-no"><strong>Halt: no</strong></p>
   <p>Exit code: 0</p>
@@ -186,7 +186,7 @@ wrote 30 records to data/phase3_trust_scores.jsonl
 
 <section class="phase" id="phase4">
   <h2>Phase 4 — IPHS validator</h2>
-  <p class="meta">Eval last run: <strong>2026-04-26T11:50:47Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  <p class="meta">Eval last run: <strong>2026-04-26T12:42:54Z</strong> (UTC). Dashboard generated: 2026-04-26T12:42:59Z.</p>
   
   <p class="halt-no"><strong>Halt: no</strong></p>
   <p>Exit code: 0</p>
@@ -246,89 +246,143 @@ wrote 30 records to data/phase4_validations.jsonl
 
 <section class="phase" id="phase5">
   <h2>Phase 5 — MLflow trace check</h2>
-  <p class="meta">Eval last run: <strong>2026-04-26T11:51:22Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  <p class="meta">Eval last run: <strong>2026-04-26T12:42:59Z</strong> (UTC). Dashboard generated: 2026-04-26T12:42:59Z.</p>
   
-  <p class="halt-no"><strong>Halt: no</strong></p>
-  <p>Exit code: 0</p>
+  <p class="halt-yes"><strong>Halt: yes — exit_code_1</strong></p>
+  <p>Exit code: 1</p>
   <h3>Headline metrics</h3>
   <table class="metrics">
-    <tbody><tr><th>llm_spans</th><td>5</td></tr><tr><th>chat_model_spans</th><td>5</td></tr><tr><th>tool_spans</th><td>38</td></tr><tr><th>agent_spans</th><td>1</td></tr><tr><th>retriever_spans</th><td>8</td></tr><tr><th>span_types_observed</th><td>&quot;[&#x27;AGENT&#x27;, &#x27;CHAIN&#x27;, &#x27;CHAT_MODEL&#x27;, &#x27;LLM&#x27;, &#x27;RETRIEVER&#x27;, &#x27;TOOL&#x27;]&quot;</td></tr><tr><th>trace_contract_ok</th><td>true</td></tr></tbody>
+    <tbody><tr><th>trace_contract_ok</th><td>false</td></tr></tbody>
   </table>
   <h3>Output (tail)</h3>
   <pre class="log">
-aggregated capabilities (post-consistency): [(&#x27;orthopedic_surgery_services&#x27;, 1.0), (&#x27;joint_reconstruction_surgery_services&#x27;, 1.0), (&#x27;family_medicine_services&#x27;, 1.0), (&#x27;orthopedic_sports_medicine_services&#x27;, 1.0), (&#x27;fracture_clinic_services&#x27;, 1.0), (&#x27;knee_replacement_surgery&#x27;, 0.8), (&#x27;arthroscopy_services&#x27;, 0.8), (&#x27;revision_hip_replacement_services&#x27;, 0.8)]
-validator output: 8 CapabilityValidation(s)
-
-trace_id: tr-15badd73a3027a41c7ccdcd929e9cd53    spans: 59
-
-[CHAIN] phase5_end_to_end  (32451.4ms)
-  └─ [CHAIN] process_facility  (32397.7ms)
-    └─ [LLM] anthropic_extract_call  (7258.6ms)
-      └─ [CHAT_MODEL] Messages.create  (7227.4ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 531, &#x27;total_tokens&#x27;: 2785, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [LLM] anthropic_extract_call  (6213.3ms)
-      └─ [CHAT_MODEL] Messages.create  (6201.1ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 447, &#x27;total_tokens&#x27;: 2701, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [LLM] anthropic_extract_call  (6034.7ms)
-      └─ [CHAT_MODEL] Messages.create  (6009.9ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 447, &#x27;total_tokens&#x27;: 2701, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [LLM] anthropic_extract_call  (6871.9ms)
-      └─ [CHAT_MODEL] Messages.create  (6850.5ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 424, &#x27;total_tokens&#x27;: 2678, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
-    └─ [TOOL] ground_capability  (0.2ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [LLM] anthropic_extract_call  (5903.2ms)
-      └─ [CHAT_MODEL] Messages.create  (5876.0ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 448, &#x27;total_tokens&#x27;: 2702, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
-    └─ [TOOL] ground_capability  (0.2ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-  └─ [AGENT] validate_facility  (23.8ms)
-    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=orthopedic_surgery_services   matched_rule_count=2   matched_rule_ids=[&#x27;R01&#x27;, &#x27;R02&#x27;]
-    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=joint_reconstruction_surgery_services   matched_rule_count=2   matched_rule_ids=[&#x27;R01&#x27;, &#x27;R02&#x27;]
-    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=family_medicine_services   matched_rule_count=0   matched_rule_ids=[]
-    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=orthopedic_sports_medicine_services   matched_rule_count=0   matched_rule_ids=[]
-    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=fracture_clinic_services   matched_rule_count=0   matched_rule_ids=[]
-    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=knee_replacement_surgery   matched_rule_count=0   matched_rule_ids=[]
-    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=arthroscopy_services   matched_rule_count=0   matched_rule_ids=[]
-    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=revision_hip_replacement_services   matched_rule_count=0   matched_rule_ids=[]
-
-span counts: LLM=5  CHAT_MODEL=5  TOOL=38  AGENT=1  RETRIEVER=8
-distinct span_types observed: [&#x27;AGENT&#x27;, &#x27;CHAIN&#x27;, &#x27;CHAT_MODEL&#x27;, &#x27;LLM&#x27;, &#x27;RETRIEVER&#x27;, &#x27;TOOL&#x27;]
-
-OK — trace satisfies the Phase 5 coverage contract.
-
 MLflow tracking: sqlite:////Users/test/Documents/Agentic-Healthcare-Maps/.mlflow/mlflow.db
-/Users/test/Documents/Agentic-Healthcare-Maps/eval/phase5_trace_check.py:112: FutureWarning: Parameter &#x27;experiment_ids&#x27; is deprecated. Please use &#x27;locations&#x27; instead.
-  traces = mlflow.search_traces(
+  call failed: &lt;failed_attempts&gt;
+
+&lt;generation number=&quot;1&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFpEonuJo51vW8Mw37&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;generation number=&quot;2&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFqm66NQceERzHqH7J&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;/failed_attempts&gt;
+
+&lt;last_exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFqm66NQceERzHqH7J&#x27;}
+&lt;/last_exception&gt;
+  call failed: &lt;failed_attempts&gt;
+
+&lt;generation number=&quot;1&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFsX1MxRZN295DRWJE&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;generation number=&quot;2&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFthCNrdxFyFxXL3Fn&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;/failed_attempts&gt;
+
+&lt;last_exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFthCNrdxFyFxXL3Fn&#x27;}
+&lt;/last_exception&gt;
+  call failed: &lt;failed_attempts&gt;
+
+&lt;generation number=&quot;1&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFuse26R2XoWJjdwii&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;generation number=&quot;2&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFw1r4UAuoSVu4KRWq&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;/failed_attempts&gt;
+
+&lt;last_exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFw1r4UAuoSVu4KRWq&#x27;}
+&lt;/last_exception&gt;
+  call failed: &lt;failed_attempts&gt;
+
+&lt;generation number=&quot;1&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFx9omAPJBkunnu1XP&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;generation number=&quot;2&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFyGmztVUb9rn8WBH8&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;/failed_attempts&gt;
+
+&lt;last_exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFyGmztVUb9rn8WBH8&#x27;}
+&lt;/last_exception&gt;
+  call failed: &lt;failed_attempts&gt;
+
+&lt;generation number=&quot;1&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQFzM2G41aLyW67nDs9&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;generation number=&quot;2&quot;&gt;
+&lt;exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQG1XTeWvkwrswmxNhp&#x27;}
+&lt;/exception&gt;
+&lt;completion&gt;
+    None
+&lt;/completion&gt;
+&lt;/generation&gt;
+
+&lt;/failed_attempts&gt;
+
+&lt;last_exception&gt;
+    Error code: 401 - {&#x27;type&#x27;: &#x27;error&#x27;, &#x27;error&#x27;: {&#x27;type&#x27;: &#x27;authentication_error&#x27;, &#x27;message&#x27;: &#x27;Invalid authentication credentials&#x27;}, &#x27;request_id&#x27;: &#x27;req_011CaSQG1XTeWvkwrswmxNhp&#x27;}
+&lt;/last_exception&gt;
+no successful samples; cannot continue trace check
 </pre>
 </section>
 
