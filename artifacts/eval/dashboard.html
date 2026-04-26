@@ -20,12 +20,12 @@
 </head>
 <body>
   <h1>Eval dashboard — Phases 2–5</h1>
-  <p>Generated <strong>2026-04-26T11:41:35Z</strong> (UTC).</p>
+  <p>Generated <strong>2026-04-26T11:51:22Z</strong> (UTC).</p>
   
 <section class="phase" id="phase2">
   <h2>Phase 2 — extraction vs gold</h2>
-  <p class="meta">Eval last run: <strong>2026-04-26T11:40:56Z</strong> (UTC). Dashboard generated: 2026-04-26T11:41:35Z.</p>
-  <p class="skipped">Used cached result (--since-last-run).</p>
+  <p class="meta">Eval last run: <strong>2026-04-26T11:50:43Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  
   <p class="halt-no"><strong>Halt: no</strong></p>
   <p>Exit code: 0</p>
   <h3>Headline metrics</h3>
@@ -78,8 +78,8 @@ Loaded 25 synonyms from capability_aliases.yaml; applied to both gold and extrac
 
 <section class="phase" id="phase3">
   <h2>Phase 3 — trust calibration</h2>
-  <p class="meta">Eval last run: <strong>2026-04-26T11:40:59Z</strong> (UTC). Dashboard generated: 2026-04-26T11:41:35Z.</p>
-  <p class="skipped">Used cached result (--since-last-run).</p>
+  <p class="meta">Eval last run: <strong>2026-04-26T11:50:45Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  
   <p class="halt-no"><strong>Halt: no</strong></p>
   <p>Exit code: 0</p>
   <h3>Headline metrics</h3>
@@ -186,8 +186,8 @@ wrote 30 records to data/phase3_trust_scores.jsonl
 
 <section class="phase" id="phase4">
   <h2>Phase 4 — IPHS validator</h2>
-  <p class="meta">Eval last run: <strong>2026-04-26T11:41:01Z</strong> (UTC). Dashboard generated: 2026-04-26T11:41:35Z.</p>
-  <p class="skipped">Used cached result (--since-last-run).</p>
+  <p class="meta">Eval last run: <strong>2026-04-26T11:50:47Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  
   <p class="halt-no"><strong>Halt: no</strong></p>
   <p>Exit code: 0</p>
   <h3>Headline metrics</h3>
@@ -246,74 +246,82 @@ wrote 30 records to data/phase4_validations.jsonl
 
 <section class="phase" id="phase5">
   <h2>Phase 5 — MLflow trace check</h2>
-  <p class="meta">Eval last run: <strong>2026-04-26T11:41:35Z</strong> (UTC). Dashboard generated: 2026-04-26T11:41:35Z.</p>
-  <p class="skipped">Used cached result (--since-last-run).</p>
+  <p class="meta">Eval last run: <strong>2026-04-26T11:51:22Z</strong> (UTC). Dashboard generated: 2026-04-26T11:51:22Z.</p>
+  
   <p class="halt-no"><strong>Halt: no</strong></p>
   <p>Exit code: 0</p>
   <h3>Headline metrics</h3>
   <table class="metrics">
-    <tbody><tr><th>llm_spans</th><td>5</td></tr><tr><th>chat_model_spans</th><td>5</td></tr><tr><th>tool_spans</th><td>32</td></tr><tr><th>agent_spans</th><td>1</td></tr><tr><th>retriever_spans</th><td>6</td></tr><tr><th>span_types_observed</th><td>&quot;[&#x27;AGENT&#x27;, &#x27;CHAIN&#x27;, &#x27;CHAT_MODEL&#x27;, &#x27;LLM&#x27;, &#x27;RETRIEVER&#x27;, &#x27;TOOL&#x27;]&quot;</td></tr><tr><th>trace_contract_ok</th><td>true</td></tr></tbody>
+    <tbody><tr><th>llm_spans</th><td>5</td></tr><tr><th>chat_model_spans</th><td>5</td></tr><tr><th>tool_spans</th><td>38</td></tr><tr><th>agent_spans</th><td>1</td></tr><tr><th>retriever_spans</th><td>8</td></tr><tr><th>span_types_observed</th><td>&quot;[&#x27;AGENT&#x27;, &#x27;CHAIN&#x27;, &#x27;CHAT_MODEL&#x27;, &#x27;LLM&#x27;, &#x27;RETRIEVER&#x27;, &#x27;TOOL&#x27;]&quot;</td></tr><tr><th>trace_contract_ok</th><td>true</td></tr></tbody>
   </table>
   <h3>Output (tail)</h3>
   <pre class="log">
-aggregated capabilities (post-consistency): [(&#x27;orthopedic_surgery_services&#x27;, 1.0), (&#x27;joint_reconstruction_surgery_services&#x27;, 1.0), (&#x27;family_medicine_services&#x27;, 1.0), (&#x27;orthopedic_sports_medicine_services&#x27;, 1.0), (&#x27;fracture_clinic_services&#x27;, 1.0), (&#x27;surgery_services&#x27;, 0.8)]
-validator output: 6 CapabilityValidation(s)
+aggregated capabilities (post-consistency): [(&#x27;orthopedic_surgery_services&#x27;, 1.0), (&#x27;joint_reconstruction_surgery_services&#x27;, 1.0), (&#x27;family_medicine_services&#x27;, 1.0), (&#x27;orthopedic_sports_medicine_services&#x27;, 1.0), (&#x27;fracture_clinic_services&#x27;, 1.0), (&#x27;knee_replacement_surgery&#x27;, 0.8), (&#x27;arthroscopy_services&#x27;, 0.8), (&#x27;revision_hip_replacement_services&#x27;, 0.8)]
+validator output: 8 CapabilityValidation(s)
 
-trace_id: tr-e1b6a0e3d741cdadef8deafbcbfe1195    spans: 51
+trace_id: tr-15badd73a3027a41c7ccdcd929e9cd53    spans: 59
 
-[CHAIN] phase5_end_to_end  (30596.9ms)
-  └─ [CHAIN] process_facility  (30546.9ms)
-    └─ [LLM] anthropic_extract_call  (6111.7ms)
-      └─ [CHAT_MODEL] Messages.create  (6078.5ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 448, &#x27;total_tokens&#x27;: 2702, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
+[CHAIN] phase5_end_to_end  (32451.4ms)
+  └─ [CHAIN] process_facility  (32397.7ms)
+    └─ [LLM] anthropic_extract_call  (7258.6ms)
+      └─ [CHAT_MODEL] Messages.create  (7227.4ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 531, &#x27;total_tokens&#x27;: 2785, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (6213.3ms)
+      └─ [CHAT_MODEL] Messages.create  (6201.1ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 447, &#x27;total_tokens&#x27;: 2701, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (6034.7ms)
+      └─ [CHAT_MODEL] Messages.create  (6009.9ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 447, &#x27;total_tokens&#x27;: 2701, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (6871.9ms)
+      └─ [CHAT_MODEL] Messages.create  (6850.5ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 424, &#x27;total_tokens&#x27;: 2678, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
     └─ [TOOL] ground_capability  (0.2ms)
     └─ [TOOL] ground_capability  (0.1ms)
     └─ [TOOL] ground_capability  (0.1ms)
     └─ [TOOL] ground_capability  (0.1ms)
     └─ [TOOL] ground_capability  (0.1ms)
     └─ [TOOL] ground_capability  (0.1ms)
-    └─ [LLM] anthropic_extract_call  (6053.1ms)
-      └─ [CHAT_MODEL] Messages.create  (6034.0ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 452, &#x27;total_tokens&#x27;: 2706, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
-    └─ [TOOL] ground_capability  (0.3ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [LLM] anthropic_extract_call  (5904.5ms)
-      └─ [CHAT_MODEL] Messages.create  (5889.7ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 422, &#x27;total_tokens&#x27;: 2676, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [LLM] anthropic_extract_call  (5943.2ms)
-      └─ [CHAT_MODEL] Messages.create  (5929.0ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 422, &#x27;total_tokens&#x27;: 2676, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
-    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (5903.2ms)
+      └─ [CHAT_MODEL] Messages.create  (5876.0ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 448, &#x27;total_tokens&#x27;: 2702, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
     └─ [TOOL] ground_capability  (0.2ms)
-    └─ [LLM] anthropic_extract_call  (6426.3ms)
-      └─ [CHAT_MODEL] Messages.create  (6410.1ms)   usage={&#x27;input_tokens&#x27;: 2254, &#x27;output_tokens&#x27;: 433, &#x27;total_tokens&#x27;: 2687, &#x27;cache_read_input_tokens&#x27;: 0, &#x27;cache_creation_input_tokens&#x27;: 0}
     └─ [TOOL] ground_capability  (0.1ms)
     └─ [TOOL] ground_capability  (0.1ms)
     └─ [TOOL] ground_capability  (0.1ms)
     └─ [TOOL] ground_capability  (0.1ms)
     └─ [TOOL] ground_capability  (0.1ms)
     └─ [TOOL] ground_capability  (0.1ms)
-  └─ [AGENT] validate_facility  (16.8ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+  └─ [AGENT] validate_facility  (23.8ms)
     └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=orthopedic_surgery_services   matched_rule_count=2   matched_rule_ids=[&#x27;R01&#x27;, &#x27;R02&#x27;]
     └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=joint_reconstruction_surgery_services   matched_rule_count=2   matched_rule_ids=[&#x27;R01&#x27;, &#x27;R02&#x27;]
     └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=family_medicine_services   matched_rule_count=0   matched_rule_ids=[]
     └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=orthopedic_sports_medicine_services   matched_rule_count=0   matched_rule_ids=[]
     └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=fracture_clinic_services   matched_rule_count=0   matched_rule_ids=[]
-    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=surgery_services   matched_rule_count=2   matched_rule_ids=[&#x27;R01&#x27;, &#x27;R02&#x27;]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=knee_replacement_surgery   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=arthroscopy_services   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=revision_hip_replacement_services   matched_rule_count=0   matched_rule_ids=[]
 
-span counts: LLM=5  CHAT_MODEL=5  TOOL=32  AGENT=1  RETRIEVER=6
+span counts: LLM=5  CHAT_MODEL=5  TOOL=38  AGENT=1  RETRIEVER=8
 distinct span_types observed: [&#x27;AGENT&#x27;, &#x27;CHAIN&#x27;, &#x27;CHAT_MODEL&#x27;, &#x27;LLM&#x27;, &#x27;RETRIEVER&#x27;, &#x27;TOOL&#x27;]
 
 OK — trace satisfies the Phase 5 coverage contract.
