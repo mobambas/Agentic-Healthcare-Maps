@@ -1,0 +1,63 @@
+Citation surface preview — Dr. Pratik Dhabalia Joint Replacement
+source_record_id = c616c9769f2afbd7
+
+  self_consistency=1.00  source_completeness=0.68  iphs_alignment=0.50  blended=0.73
+  badge counts:  green=0  yellow=6  red=0
+
+====================================================================================================
+Capability cards (one per cap)
+====================================================================================================
+
+┌─ fracture_clinic_services    [YELLOW]
+│  self_consistency=1.00  iphs_alignment=1.00  raw=0.89  calibrated=0.70
+│  prediction_set=['claimed', 'not_claimed']
+│  evidence_quote: 'Fracture clinic services'
+│  reasoning: Capability 'fracture_clinic_services' triggered no IPHS rule; alignment 1.00.
+└─
+
+┌─ orthopedic_surgery_services    [YELLOW]
+│  self_consistency=1.00  iphs_alignment=0.00  raw=0.56  calibrated=0.57
+│  prediction_set=['claimed', 'not_claimed']
+│  evidence_quote: 'orthopedicSurgery'
+│  reasoning: Capability 'orthopedic_surgery_services' triggered rule(s) R01, R02; alignment 0.00.
+│  ⚠ R01 [HIGH]: Surgical services claimed without an anaesthesiology provider; IPHS requires an anaesthesiologist (or LSAS-trained MO) at any facility offering surgical care.
+│    citation: IPHS 2022 Vol II — FRU CHC essential specialists list (Surgeon, Physician, Obstetrician-Gynaecologist, Paediatrician, Anaesthesiologist or LSAS-trained MO).
+│  ⚠ R02 [HIGH]: Surgical services claimed without evidence of a functional operation theatre; IPHS lists a functional OT as essential at FRU CHC and above.
+│    citation: IPHS 2022 Vol II — FRU CHC functional OT requirement.
+└─
+
+┌─ joint_reconstruction_surgery_services    [YELLOW]
+│  self_consistency=1.00  iphs_alignment=0.00  raw=0.56  calibrated=0.57
+│  prediction_set=['claimed', 'not_claimed']
+│  evidence_quote: 'jointReconstructionSurgery'
+│  reasoning: Capability 'joint_reconstruction_surgery_services' triggered rule(s) R01, R02; alignment 0.00.
+│  ⚠ R01 [HIGH]: Surgical services claimed without an anaesthesiology provider; IPHS requires an anaesthesiologist (or LSAS-trained MO) at any facility offering surgical care.
+│    citation: IPHS 2022 Vol II — FRU CHC essential specialists list (Surgeon, Physician, Obstetrician-Gynaecologist, Paediatrician, Anaesthesiologist or LSAS-trained MO).
+│  ⚠ R02 [HIGH]: Surgical services claimed without evidence of a functional operation theatre; IPHS lists a functional OT as essential at FRU CHC and above.
+│    citation: IPHS 2022 Vol II — FRU CHC functional OT requirement.
+└─
+
+┌─ family_medicine_services    [YELLOW]
+│  self_consistency=1.00  iphs_alignment=1.00  raw=0.89  calibrated=0.70
+│  prediction_set=['claimed', 'not_claimed']
+│  evidence_quote: 'familyMedicine'
+│  reasoning: Capability 'family_medicine_services' triggered no IPHS rule; alignment 1.00.
+└─
+
+┌─ orthopedic_sports_medicine_services    [YELLOW]
+│  self_consistency=1.00  iphs_alignment=1.00  raw=0.89  calibrated=0.70
+│  prediction_set=['claimed', 'not_claimed']
+│  evidence_quote: 'orthopedicSportsMedicine'
+│  reasoning: Capability 'orthopedic_sports_medicine_services' triggered no IPHS rule; alignment 1.00.
+└─
+
+┌─ surgery_services    [YELLOW]
+│  self_consistency=1.00  iphs_alignment=0.00  raw=0.56  calibrated=0.57
+│  prediction_set=['claimed', 'not_claimed']
+│  evidence_quote: 'Knee replacement surgery | Arthroscopy and sports surgery | Revision hip replacement'
+│  reasoning: Capability 'surgery_services' triggered rule(s) R01, R02; alignment 0.00.
+│  ⚠ R01 [HIGH]: Surgical services claimed without an anaesthesiology provider; IPHS requires an anaesthesiologist (or LSAS-trained MO) at any facility offering surgical care.
+│    citation: IPHS 2022 Vol II — FRU CHC essential specialists list (Surgeon, Physician, Obstetrician-Gynaecologist, Paediatrician, Anaesthesiologist or LSAS-trained MO).
+│  ⚠ R02 [HIGH]: Surgical services claimed without evidence of a functional operation theatre; IPHS lists a functional OT as essential at FRU CHC and above.
+│    citation: IPHS 2022 Vol II — FRU CHC functional OT requirement.
+└─

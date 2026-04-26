@@ -27,7 +27,9 @@ if str(ROOT) not in sys.path:
 
 import anthropic
 import instructor
+import mlflow
 from dotenv import load_dotenv
+from mlflow.entities import SpanType
 from pydantic import BaseModel, Field
 from rapidfuzz import fuzz
 from tqdm import tqdm
@@ -50,6 +52,8 @@ ALIASES_PATH = ROOT / "data" / "capability_aliases.yaml"
 PREVIEW_PATH = ROOT / "data" / "canonicalization_preview.md"
 
 DEFAULT_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-6")
+DEFAULT_MLFLOW_TRACKING_URI = f"sqlite:///{ROOT}/.mlflow/mlflow.db"
+DEFAULT_MLFLOW_EXPERIMENT = "agentic-healthcare-maps"
 N_SAMPLES = 5
 TEMPERATURE = 0.7
 MAX_OUTPUT_TOKENS = 2048
@@ -71,6 +75,23 @@ NULLS = {"", "null", "none", "nan", "[]"}
 
 INPUT_COST_PER_MTOK = 3.0
 OUTPUT_COST_PER_MTOK = 15.0
+
+
+def setup_mlflow(experiment: str | None = None) -> None:
+    """Configure tracking URI + experiment + Anthropic autolog.
+
+    Tracking URI defaults to a local SQLite store at .mlflow/mlflow.db; override
+    via MLFLOW_TRACKING_URI for the eventual UC Delta target in Phase 8.
+    """
+    tracking_uri = os.getenv("MLFLOW_TRACKING_URI", DEFAULT_MLFLOW_TRACKING_URI)
+    if tracking_uri.startswith("sqlite:"):
+        db_path = Path(tracking_uri.replace("sqlite:///", ""))
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+    mlflow.set_tracking_uri(tracking_uri)
+    mlflow.set_experiment(experiment or os.getenv("MLFLOW_EXPERIMENT", DEFAULT_MLFLOW_EXPERIMENT))
+    # Autolog must be called explicitly: mlflow does not enable it by default
+    # in serverless environments per the master prompt.
+    mlflow.anthropic.autolog()
 
 
 class CapabilityExtraction(BaseModel):
@@ -222,6 +243,7 @@ Source text (extract evidence_quote substrings ONLY from below):
 {source_text}"""
 
 
+@mlflow.trace(span_type=SpanType.TOOL, name="ground_capability")
 def ground_capability(cap: CapabilityExtraction, source_text: str) -> tuple[str, tuple[int, int]] | None:
     quote = cap.evidence_quote.strip()
     if not quote:
@@ -393,6 +415,7 @@ def estimate_call_cost(system_prompt: str, user_message: str, raw_response: obje
     return (estimated_input * INPUT_COST_PER_MTOK + estimated_output * OUTPUT_COST_PER_MTOK) / 1_000_000
 
 
+@mlflow.trace(span_type=SpanType.LLM, name="anthropic_extract_call")
 def call_model(
     client: instructor.Instructor,
     model: str,
@@ -414,6 +437,45 @@ def call_model(
     except Exception as exc:
         print(f"  call failed: {exc}", file=sys.stderr)
         return None, None
+
+
+@mlflow.trace(span_type=SpanType.CHAIN, name="process_facility")
+def process_facility(
+    client: instructor.Instructor,
+    model: str,
+    system_prompt: str,
+    user_message: str,
+    source_text: str,
+    source_id: str,
+    row: dict[str, str],
+    *,
+    n_samples: int = N_SAMPLES,
+    temperature: float = TEMPERATURE,
+    budget_remaining: float = float("inf"),
+) -> tuple[list[FacilityClaim], int, float, bool]:
+    """Run N sample extractions for one facility and return raw claims.
+
+    Returns (sample_claims, sample_rejection_total, cost_used, budget_hit).
+    Aggregation and canonicalization happen in the caller — this function is
+    the trace boundary for one record's pipeline.
+    """
+    mlflow.update_current_trace(
+        tags={"source_record_id": source_id, "model": model}
+    )
+    sample_claims: list[FacilityClaim] = []
+    sample_rejections = 0
+    cost_used = 0.0
+    for _ in range(n_samples):
+        if cost_used > budget_remaining:
+            return sample_claims, sample_rejections, cost_used, True
+        result, raw = call_model(client, model, system_prompt, user_message, temperature)
+        cost_used += estimate_call_cost(system_prompt, user_message, raw)
+        if result is None:
+            continue
+        claim, rej = build_claim(result, row, source_text, source_id)
+        sample_claims.append(claim)
+        sample_rejections += rej
+    return sample_claims, sample_rejections, cost_used, False
 
 
 def load_existing_extractions() -> dict[str, dict]:
@@ -607,8 +669,10 @@ def main() -> int:
         print("ERROR: ANTHROPIC_API_KEY not set in environment or .env", file=sys.stderr)
         return 1
 
+    setup_mlflow()
     vocab = load_vocab()
     print(f"Loaded vocabulary: {len(vocab)} terms", file=sys.stderr)
+    print(f"MLflow tracking: {mlflow.get_tracking_uri()}", file=sys.stderr)
 
     gold_records = [
         json.loads(line)
@@ -653,21 +717,19 @@ def main() -> int:
             source_text = build_source_text(row)
             user_message = make_user_message(row, source_text, source_id)
 
-            sample_claims: list[FacilityClaim] = []
-            sample_rejections = 0
-            for _ in range(N_SAMPLES):
-                if total_cost > args.budget_usd:
-                    budget_hit = True
-                    break
-                result, raw = call_model(client, args.model, system_prompt, user_message, TEMPERATURE)
-                total_cost += estimate_call_cost(system_prompt, user_message, raw)
-                if result is None:
-                    continue
-                claim, rej = build_claim(result, row, source_text, source_id)
-                sample_claims.append(claim)
-                sample_rejections += rej
-
-            if budget_hit:
+            sample_claims, sample_rejections, cost_used, record_budget_hit = process_facility(
+                client,
+                args.model,
+                system_prompt,
+                user_message,
+                source_text,
+                source_id,
+                row,
+                budget_remaining=args.budget_usd - total_cost,
+            )
+            total_cost += cost_used
+            if record_budget_hit:
+                budget_hit = True
                 print(f"BUDGET EXCEEDED at ${total_cost:.2f}; stopping early", file=sys.stderr)
                 break
 

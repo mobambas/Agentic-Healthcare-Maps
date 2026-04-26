@@ -25,7 +25,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Sequence
 
+import mlflow
 import yaml
+from mlflow.entities import SpanType
 
 from agent.schemas.facility import FacilityClaim
 
@@ -33,7 +35,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_RULES_PATH = ROOT / "data" / "iphs_rules.yaml"
 
 WILDCARD_APPLIES_TO = "any_facility_with_capability_X"
-PER_MISSING_EVIDENCE_PENALTY = 0.25
+PER_MISSING_EVIDENCE_PENALTY = 0.50
 
 
 @dataclass(frozen=True)
@@ -74,6 +76,26 @@ class ValidatorAgent:
             return False
         return claim.iphs_equivalent_tier in applies_to
 
+    def _matching_rules_for(self, cap_name: str, claim: FacilityClaim) -> list[dict]:
+        with mlflow.start_span(
+            name="lookup_iphs_rules", span_type=SpanType.RETRIEVER
+        ) as span:
+            matching = [
+                rule
+                for rule in self.rules
+                if cap_name in self._trigger_set(rule) and self._applies(rule, claim)
+            ]
+            span.set_attributes(
+                {
+                    "capability_name": cap_name,
+                    "matched_rule_count": len(matching),
+                    "matched_rule_ids": [rule["id"] for rule in matching],
+                    "claim_tier": claim.iphs_equivalent_tier or "null",
+                }
+            )
+            return matching
+
+    @mlflow.trace(span_type=SpanType.AGENT, name="validate_facility")
     def validate_facility(
         self, claim: FacilityClaim, raw_text: str = ""
     ) -> list[CapabilityValidation]:
@@ -82,19 +104,19 @@ class ValidatorAgent:
         # already present in the FacilityClaim.
         del raw_text  # unused in v1
 
+        mlflow.update_current_trace(
+            tags={"source_record_id": claim.source_record_id}
+        )
         cap_names = {cap.name for cap in claim.capabilities}
         cap_evidence = {cap.name: cap.evidence_quote for cap in claim.capabilities}
 
         validations: list[CapabilityValidation] = []
         for cap in claim.capabilities:
+            matching_rules = self._matching_rules_for(cap.name, claim)
             score = 1.0
             violated: list[str] = []
             evidence: list[str] = []
-            for rule in self.rules:
-                if cap.name not in self._trigger_set(rule):
-                    continue
-                if not self._applies(rule, claim):
-                    continue
+            for rule in matching_rules:
                 required = list(rule.get("required_evidence") or [])
                 missing = [name for name in required if name not in cap_names]
                 if not required:

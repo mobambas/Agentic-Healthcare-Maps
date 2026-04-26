@@ -1,0 +1,71 @@
+MLflow tracking: sqlite:////Users/test/Documents/Agentic-Healthcare-Maps/.mlflow/mlflow.db
+/Users/test/Documents/Agentic-Healthcare-Maps/eval/phase5_trace_check.py:112: FutureWarning: Parameter 'experiment_ids' is deprecated. Please use 'locations' instead.
+  traces = mlflow.search_traces(
+
+aggregated capabilities (post-consistency): [('orthopedic_surgery_services', 1.0), ('joint_reconstruction_surgery_services', 1.0), ('family_medicine_services', 1.0), ('orthopedic_sports_medicine_services', 1.0), ('fracture_clinic_services', 1.0), ('knee_replacement_surgery', 0.6), ('arthroscopy_services', 0.8), ('revision_hip_replacement_services', 0.6)]
+validator output: 8 CapabilityValidation(s)
+
+trace_id: tr-3f0658fb974917902935c3cc4abaf4ae    spans: 57
+
+[CHAIN] phase5_end_to_end  (31532.6ms)
+  └─ [CHAIN] process_facility  (31477.4ms)
+    └─ [LLM] anthropic_extract_call  (6240.1ms)
+      └─ [CHAT_MODEL] Messages.create  (6202.2ms)   usage={'input_tokens': 2254, 'output_tokens': 448, 'total_tokens': 2702, 'cache_read_input_tokens': 0, 'cache_creation_input_tokens': 0}
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (5915.2ms)
+      └─ [CHAT_MODEL] Messages.create  (5903.4ms)   usage={'input_tokens': 2254, 'output_tokens': 414, 'total_tokens': 2668, 'cache_read_input_tokens': 0, 'cache_creation_input_tokens': 0}
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (5763.1ms)
+      └─ [CHAT_MODEL] Messages.create  (5747.8ms)   usage={'input_tokens': 2254, 'output_tokens': 422, 'total_tokens': 2676, 'cache_read_input_tokens': 0, 'cache_creation_input_tokens': 0}
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [LLM] anthropic_extract_call  (6725.6ms)
+      └─ [CHAT_MODEL] Messages.create  (6712.1ms)   usage={'input_tokens': 2254, 'output_tokens': 540, 'total_tokens': 2794, 'cache_read_input_tokens': 0, 'cache_creation_input_tokens': 0}
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [LLM] anthropic_extract_call  (6706.2ms)
+      └─ [CHAT_MODEL] Messages.create  (6690.8ms)   usage={'input_tokens': 2254, 'output_tokens': 451, 'total_tokens': 2705, 'cache_read_input_tokens': 0, 'cache_creation_input_tokens': 0}
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.2ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+    └─ [TOOL] ground_capability  (0.1ms)
+  └─ [AGENT] validate_facility  (19.1ms)
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=orthopedic_surgery_services   matched_rule_count=2   matched_rule_ids=['R01', 'R02']
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=joint_reconstruction_surgery_services   matched_rule_count=2   matched_rule_ids=['R01', 'R02']
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=family_medicine_services   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=orthopedic_sports_medicine_services   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=fracture_clinic_services   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=knee_replacement_surgery   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=arthroscopy_services   matched_rule_count=0   matched_rule_ids=[]
+    └─ [RETRIEVER] lookup_iphs_rules  (0.1ms)   capability_name=revision_hip_replacement_services   matched_rule_count=0   matched_rule_ids=[]
+
+span counts: LLM=5  CHAT_MODEL=5  TOOL=36  AGENT=1  RETRIEVER=8
+distinct span_types observed: ['AGENT', 'CHAIN', 'CHAT_MODEL', 'LLM', 'RETRIEVER', 'TOOL']
+
+OK — trace satisfies the Phase 5 coverage contract.
