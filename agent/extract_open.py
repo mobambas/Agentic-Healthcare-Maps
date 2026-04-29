@@ -1,8 +1,8 @@
 """Phase 6 open-weight extraction module.
 
 Mirrors `agent.extract` but routes the structured-extraction LLM call to a
-vLLM-served, OpenAI-compatible endpoint hosting Qwen 2.5 7B Instruct (or any
-other instruct-tuned open model). Same Pydantic schema, same prompt, same
+vLLM-served, OpenAI-compatible endpoint hosting Qwen 2.5 7B Instruct AWQ (or
+any other instruct-tuned open model). Same Pydantic schema, same prompt, same
 self-consistency aggregation, same evidence-grounding rejection.
 
 Why a parallel module: the Sonnet 4.6 30-record reference set in
@@ -59,7 +59,7 @@ load_dotenv(ROOT / ".env")
 
 DEFAULT_OUTPUT_PATH = ROOT / "data" / "phase6_extractions_qwen.jsonl"
 DEFAULT_VLLM_ENDPOINT_URL = os.getenv("VLLM_ENDPOINT_URL", "http://localhost:8000/v1")
-DEFAULT_QWEN_MODEL = os.getenv("QWEN_MODEL", "Qwen/Qwen2.5-7B-Instruct")
+DEFAULT_QWEN_MODEL = os.getenv("QWEN_MODEL", "Qwen/Qwen2.5-7B-Instruct-AWQ")
 DEFAULT_VLLM_API_KEY = os.getenv("VLLM_API_KEY", "EMPTY")
 
 # Open-weight max_tokens override. The Sonnet path uses 2048 because Anthropic
