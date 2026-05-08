@@ -59,7 +59,7 @@ load_dotenv(ROOT / ".env")
 
 DEFAULT_OUTPUT_PATH = ROOT / "data" / "phase6_extractions_qwen.jsonl"
 DEFAULT_VLLM_ENDPOINT_URL = os.getenv("VLLM_ENDPOINT_URL", "http://localhost:8000/v1")
-DEFAULT_QWEN_MODEL = os.getenv("QWEN_MODEL", "Qwen/Qwen2.5-7B-Instruct")
+DEFAULT_QWEN_MODEL = os.getenv("QWEN_MODEL", "Qwen/Qwen2.5-7B-Instruct-AWQ")
 DEFAULT_VLLM_API_KEY = os.getenv("VLLM_API_KEY", "EMPTY")
 
 # Open-weight max_tokens override. The Sonnet path uses 2048 because Anthropic
