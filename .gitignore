@@ -39,3 +39,7 @@ vllm_server.log
 
 # Notebooks scratch
 .ipynb_checkpoints/
+
+# Local development instructions
+/.cursor/skills/
+/CLAUDE.md
